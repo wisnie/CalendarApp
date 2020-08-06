@@ -6,7 +6,7 @@ import { CalendarProvider } from './context/calendar-context';
 import { ChartProvider } from './context/chart-context';
 
 type Props = { children: React.ReactNode };
-export default function AppProvider({ children }: Props) {
+export default function AppProviders({ children }: Props) {
   return (
     <CalendarProvider>
       <SelectedDayProvider>

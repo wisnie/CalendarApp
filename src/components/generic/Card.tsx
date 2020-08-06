@@ -9,7 +9,7 @@ export default function Card({ children }: Props) {
   return (
     <div
       className={clsx(
-        'rounded shadow-lg',
+        'flex-grow mt-1 rounded shadow-lg',
         isLightTheme ? 'bg-white' : 'bg-gray-800'
       )}
     >

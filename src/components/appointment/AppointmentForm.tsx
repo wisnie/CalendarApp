@@ -5,18 +5,16 @@ import { useSelectedDayState } from '../../context/selected-day-context';
 import { useIsLightTheme } from '../../context/theme-context';
 import {
   useAppointmentsDispatch,
-  ActionTypes,
+  ActionTypes as CalendarAction,
 } from '../../context/appointments-context';
 import {
   useChartDispatch,
-  ActionTypes as ChartActionTypes,
+  ActionTypes as ChartAction,
 } from '../../context/chart-context';
 
 export default function AppointmentForm() {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const resetTitle = () => setTitle('');
-  const resetDescription = () => setDescription('');
 
   const selectedDay = useSelectedDayState();
   const appointmentsDispatch = useAppointmentsDispatch();
@@ -27,21 +25,21 @@ export default function AppointmentForm() {
     e.preventDefault();
     if (title.length > 0 && description.length > 0) {
       appointmentsDispatch({
-        type: ActionTypes.SetAppointment,
+        type: CalendarAction.SetAppointment,
         payload: { calendarDay: selectedDay, title, description },
       });
       chartDispatch({
-        type: ChartActionTypes.IncrementAddedAppointments,
+        type: ChartAction.IncrementAddedAppointments,
       });
-      resetTitle();
-      resetDescription();
+      setTitle('');
+      setDescription('');
     }
   };
 
   return (
     <form
       className={clsx(
-        'flex flex-col justify-between w-full h-full px-3 py-5 border-t-2',
+        'flex flex-col justify-between flex-grow w-full px-3 py-5 border-t-2',
         isLightTheme ? 'border-gray-200' : 'border-gray-700'
       )}
       onSubmit={handleSubmit}
@@ -92,7 +90,7 @@ export default function AppointmentForm() {
         />
       </div>
       <button
-        className='w-full py-2 mt-16 rounded text-white uppercase tracking-wider font-bold bg-indigo-700 hover:bg-indigo-800 transition-colors ease-out duration-100'
+        className='w-full py-2 rounded text-white uppercase tracking-wider font-bold bg-indigo-700 hover:bg-indigo-800 transition-colors ease-out duration-100'
         type='submit'
       >
         Add

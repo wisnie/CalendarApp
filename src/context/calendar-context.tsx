@@ -1,4 +1,4 @@
-import React, { useReducer, useContext } from 'react';
+import React, { useReducer, useContext, useCallback } from 'react';
 
 const FIRST_MONTH_INDEX = 0;
 const LAST_MONTH_INDEX = 11;
@@ -8,6 +8,7 @@ type State = {
   month: number;
 };
 type CalendarProviderProps = { children: React.ReactNode };
+type SetCalendarPayload = State;
 
 enum ActionTypes {
   SetCalendar = 'setCalendar',
@@ -17,12 +18,18 @@ enum ActionTypes {
   DecrementMonth = 'decrementMonth',
 }
 type Action =
-  | { type: ActionTypes.SetCalendar; payload: State }
+  | { type: ActionTypes.SetCalendar; payload: SetCalendarPayload }
   | { type: ActionTypes.IncrementYear }
   | { type: ActionTypes.DecrementYear }
   | { type: ActionTypes.IncrementMonth }
   | { type: ActionTypes.DecrementMonth };
-type Dispatch = (action: Action) => void;
+type Dispatch = {
+  incrementYear: () => void;
+  decrementYear: () => void;
+  incrementMonth: () => void;
+  decrementMonth: () => void;
+  setCalendar: (payload: SetCalendarPayload) => void;
+};
 
 const CalendarStateContext = React.createContext<State | undefined>(undefined);
 const CalendarDispatchContext = React.createContext<Dispatch | undefined>(
@@ -82,9 +89,43 @@ const INITIAL_STATE: State = {
 function CalendarProvider({ children }: CalendarProviderProps) {
   const [state, dispatch] = useReducer(calendarReducer, INITIAL_STATE);
 
+  const incrementYear = useCallback(
+    (): void => dispatch({ type: ActionTypes.IncrementYear }),
+    [dispatch]
+  );
+
+  const decrementYear = useCallback(
+    (): void => dispatch({ type: ActionTypes.DecrementYear }),
+    [dispatch]
+  );
+
+  const incrementMonth = useCallback(
+    (): void => dispatch({ type: ActionTypes.IncrementMonth }),
+    [dispatch]
+  );
+
+  const decrementMonth = useCallback(
+    (): void => dispatch({ type: ActionTypes.DecrementMonth }),
+    [dispatch]
+  );
+
+  const setCalendar = useCallback(
+    (payload: SetCalendarPayload): void =>
+      dispatch({ type: ActionTypes.SetCalendar, payload }),
+    [dispatch]
+  );
+
   return (
     <CalendarStateContext.Provider value={state}>
-      <CalendarDispatchContext.Provider value={dispatch}>
+      <CalendarDispatchContext.Provider
+        value={{
+          incrementYear,
+          decrementYear,
+          incrementMonth,
+          decrementMonth,
+          setCalendar,
+        }}
+      >
         {children}
       </CalendarDispatchContext.Provider>
     </CalendarStateContext.Provider>

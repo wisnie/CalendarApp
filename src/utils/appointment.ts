@@ -3,7 +3,6 @@ import { CalendarDay, isSameDay } from './calendar';
 import { setStorageItem, getStorageItem } from '../utils/storage';
 
 const APPOINTMENTS = 'appointments';
-const MAX_UPCOMING_APPOINTMENTS = 7;
 const ONE_DAY_IN_MS = 86400000;
 
 const Appointment = z.object({
@@ -66,10 +65,7 @@ function getDaysToAppointment({ year, month, day }: CalendarDay) {
 }
 
 function getUpcomingAppointments(appointments: AppointmentsArray) {
-  return appointments
-    .filter(isFutureAppointment)
-    .sort(compareDates)
-    .slice(0, MAX_UPCOMING_APPOINTMENTS);
+  return appointments.filter(isFutureAppointment).sort(compareDates);
 }
 
 function isFutureAppointment(appointment: Appointment) {

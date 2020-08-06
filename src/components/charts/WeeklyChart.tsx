@@ -17,10 +17,14 @@ import { useIsLightTheme } from '../../context/theme-context';
 
 export default function WeeklyChart() {
   const isLightTheme = useIsLightTheme();
-  const { weeklyData } = useChartState();
+  const chartData = useChartState();
 
   return (
-    <Section heading='Weekly Chart' id='weeklyData-chart'>
+    <Section
+      heading='Weekly Chart'
+      id='weeklyData-chart'
+      gridPosition='md:col-span-12 xl:col-span-6'
+    >
       <header
         className={clsx(
           'inline-block px-3 py-4 text-xl',
@@ -35,8 +39,8 @@ export default function WeeklyChart() {
           isLightTheme ? 'border-gray-200' : 'border-gray-700'
         )}
       >
-        <ResponsiveContainer width='100%' height={450}>
-          <LineChart data={weeklyData}>
+        <ResponsiveContainer width='100%' height={350}>
+          <LineChart data={chartData}>
             <Line
               type='monotone'
               dataKey='Added appointments'

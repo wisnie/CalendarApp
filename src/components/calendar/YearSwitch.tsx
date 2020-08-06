@@ -8,20 +8,16 @@ import { useIsLightTheme } from '../../context/theme-context';
 import {
   useCalendarState,
   useCalendarDispatch,
-  ActionTypes,
 } from '../../context/calendar-context';
 
 export default function YearSwitch() {
-  const calendarDispatch = useCalendarDispatch();
+  const { incrementYear, decrementYear } = useCalendarDispatch();
   const isLightTheme = useIsLightTheme();
   const { year } = useCalendarState();
 
   return (
     <div className='flex justify-between items-center w-2/5'>
-      <button
-        className='cursor-pointer'
-        onClick={() => calendarDispatch({ type: ActionTypes.DecrementYear })}
-      >
+      <button className='cursor-pointer' onClick={decrementYear}>
         <ChevronLeft className={getChevronClasses(isLightTheme)} />
         <span className='sr-only'>Previous Year</span>
       </button>
@@ -33,10 +29,7 @@ export default function YearSwitch() {
       >
         {year}
       </span>
-      <button
-        className='cursor-pointer'
-        onClick={() => calendarDispatch({ type: ActionTypes.IncrementYear })}
-      >
+      <button className='cursor-pointer' onClick={incrementYear}>
         <ChevronRight className={getChevronClasses(isLightTheme)} />
         <span className='sr-only'>Next Year</span>
       </button>

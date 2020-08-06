@@ -2,18 +2,28 @@ import React from 'react';
 
 import Card from './Card';
 import SectionHeading from './SectionHeading';
+import clsx from 'clsx';
 
 type Props = {
   heading: string;
   id: string;
+  gridPosition?: string;
   children: React.ReactNode;
 };
-export default function Section({ heading, id, children }: Props) {
+export default function Section({
+  heading,
+  id,
+  children,
+  gridPosition = 'row-auto col-auto',
+}: Props) {
   return (
     <section
-      className='w-full max-w-xs sm:max-w-sm flex flex-col'
+      className={clsx(
+        'h-full max-h-full w-full max-w-full flex flex-col',
+        gridPosition
+      )}
       id={id}
-      style={{ justifySelf: 'center' }}
+      style={{ minHeight: '500px' }}
     >
       <SectionHeading value={heading} />
       <Card>{children}</Card>

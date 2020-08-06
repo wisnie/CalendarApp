@@ -7,47 +7,43 @@ import { useIsLightTheme } from '../../context/theme-context';
 
 export default function Header() {
   const isLightTheme = useIsLightTheme();
+  const itemClasses = clsx(
+    'px-3 lg:text-xl',
+    isLightTheme ? 'text-gray-700' : 'text-white'
+  );
   return (
-    <header className={clsx('py-3', isLightTheme ? 'bg-white' : 'bg-gray-800')}>
+    <header
+      className={clsx(
+        'sticky top-0 md:static z-20 py-3 px-2 whitespace-no-wrap overflow-x-auto',
+        isLightTheme ? 'bg-white' : 'bg-gray-800'
+      )}
+    >
       <Container>
-        <div className='relative md:flex md:justify-between md:items-center'>
+        <div className='flex items-center justify-between w-full'>
           <h1
             className={clsx(
-              'text-2xl font-semibold tracking-wide md:text-3xl lg:text-4xl',
+              'mr-3 text-2xl font-bold tracking-wide md:text-3xl lg:text-4xl flex-shrink-0',
               isLightTheme ? 'text-gray-800' : 'text-white'
             )}
           >
-            React Calendar
+            Calendar App
           </h1>
-          <nav className='mt-3 py-3 border-t-2 border-gray-500 md:border-0 md:mt-0 md:py-0'>
-            <ul className='md:flex md:items-center'>
-              <li
-                className={clsx(
-                  'md:text-sm lg:text-xl',
-                  isLightTheme ? 'text-gray-700' : 'text-white'
-                )}
-              >
+          <nav className='md:hidden'>
+            <ul className='flex'>
+              <li className={itemClasses}>
                 <a href='#calendar'>Calendar</a>
               </li>
-              <li
-                className={clsx(
-                  'mt-3 md:mt-0 md:ml-5 md:text-sm lg:text-xl lg:ml-8',
-                  isLightTheme ? 'text-gray-700' : 'text-white'
-                )}
-              >
+              <li className={itemClasses}>
                 <a href='#upcoming-appointments'>Upcoming Appointments</a>
               </li>
-              <li
-                className={clsx(
-                  'mt-3 md:mt-0 md:ml-5 md:text-sm lg:text-xl lg:ml-8',
-                  isLightTheme ? 'text-gray-700' : 'text-white'
-                )}
-              >
+              <li className={itemClasses}>
                 <a href='#add-appointment'>Add Appointment</a>
               </li>
             </ul>
           </nav>
-          <ThemeToggle />
+          <div className='px-5 md:px-0'>
+            <ThemeToggle />
+          </div>
         </div>
       </Container>
     </header>

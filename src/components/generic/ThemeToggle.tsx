@@ -12,16 +12,16 @@ export default function ThemeToggle() {
   return (
     <button
       className={clsx(
-        'absolute top-0 right-0 md:static h-10 w-10 rounded p-1 shadow-lg cursor-pointer',
+        'rounded p-1 shadow-lg cursor-pointer',
         isLightTheme ? 'bg-gray-900' : 'bg-white'
       )}
       type='button'
       onClick={toggleTheme}
     >
       {isLightTheme ? (
-        <Moon className='fill-current text-white' />
+        <Moon className='fill-current h-8 text-white' />
       ) : (
-        <Sun className='fill-current text-gray-800' />
+        <Sun className='fill-current h-8 text-gray-800' />
       )}
       <span className='sr-only'>
         Switch to {isLightTheme ? 'dark' : 'light'} theme

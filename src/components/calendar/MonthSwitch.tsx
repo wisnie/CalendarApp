@@ -8,20 +8,16 @@ import { useIsLightTheme } from '../../context/theme-context';
 import {
   useCalendarState,
   useCalendarDispatch,
-  ActionTypes,
 } from '../../context/calendar-context';
 
 export default function MonthSwitch() {
-  const calendarDispatch = useCalendarDispatch();
+  const { incrementMonth, decrementMonth } = useCalendarDispatch();
   const isLightTheme = useIsLightTheme();
   const { month } = useCalendarState();
 
   return (
     <div className='flex justify-between items-center w-3/5'>
-      <button
-        className='cursor-pointer'
-        onClick={() => calendarDispatch({ type: ActionTypes.DecrementMonth })}
-      >
+      <button className='cursor-pointer' onClick={decrementMonth}>
         <ChevronLeft className={getChevronClasses(isLightTheme)} />
         <span className='sr-only'>Previous Month</span>
       </button>
@@ -33,10 +29,7 @@ export default function MonthSwitch() {
       >
         {getMonthName(month)}
       </span>
-      <button
-        className='cursor-pointer'
-        onClick={() => calendarDispatch({ type: ActionTypes.IncrementMonth })}
-      >
+      <button className='cursor-pointer' onClick={incrementMonth}>
         <ChevronRight className={getChevronClasses(isLightTheme)} />
         <span className='sr-only'>Next Month</span>
       </button>

@@ -9,10 +9,7 @@ import {
   useSelectedDaySetState,
 } from '../../context/selected-day-context';
 import { useIsLightTheme } from '../../context/theme-context';
-import {
-  useCalendarDispatch,
-  ActionTypes,
-} from '../../context/calendar-context';
+import { useCalendarDispatch } from '../../context/calendar-context';
 import { isSameDay } from '../../utils/calendar';
 
 type Props = { appointment: Appointment };
@@ -21,33 +18,43 @@ export default function UpcomingAppointmentsItem({ appointment }: Props) {
   const daysToAppointment = getDaysToAppointment(appointment.calendarDay);
   const selectedDay = useSelectedDayState();
   const setSelectedDay = useSelectedDaySetState();
-  const calendarDispatch = useCalendarDispatch();
+  const { setCalendar } = useCalendarDispatch();
   const isSelected = isSameDay(selectedDay, appointment.calendarDay);
 
   const selectDate = () => {
     setSelectedDay(appointment.calendarDay);
-    calendarDispatch({
-      type: ActionTypes.SetCalendar,
-      payload: {
-        year: appointment.calendarDay.year,
-        month: appointment.calendarDay.month,
-      },
+    setCalendar({
+      year: appointment.calendarDay.year,
+      month: appointment.calendarDay.month,
     });
   };
+
+  const isWithinTwoDays = daysToAppointment <= 2;
+  const isWithinFiveDays = daysToAppointment <= 5;
+  const badgeClasses = clsx(
+    'inline-block w-20 p-2 flex-none rounded-full text-white text-xs font-bold text-center truncate',
+    {
+      'bg-red-400': isWithinTwoDays,
+      'bg-green-400': isWithinFiveDays && !isWithinTwoDays,
+      'bg-gray-400': !isWithinFiveDays && !isWithinTwoDays,
+    }
+  );
+
+  const locationClasses = clsx('h-6 w-6 fill-current', {
+    'text-gray-800': isLightTheme && isSelected,
+    'text-gray-400 hover:text-gray-700': isLightTheme && !isSelected,
+    'text-white': !isLightTheme && isSelected,
+    'text-gray-700 hover:text-gray-500': !isLightTheme && !isSelected,
+  });
 
   return (
     <li>
       <button
-        className='flex items-center justify-between w-full mt-4'
+        className='flex items-center justify-between w-full mb-5'
         onClick={selectDate}
       >
         <div className='flex items-center'>
-          <span
-            className={clsx(
-              'inline-block w-20 p-2 flex-none rounded-full text-white text-xs font-bold text-center truncate',
-              getBackgroundForBadge(daysToAppointment)
-            )}
-          >
+          <span className={badgeClasses}>
             {getTextForBadge(daysToAppointment)}
           </span>
           <h3
@@ -60,29 +67,10 @@ export default function UpcomingAppointmentsItem({ appointment }: Props) {
           </h3>
         </div>
         <span className='sr-only'>Jump to Date</span>
-        <Location
-          className={clsx(
-            'h-6 w-6 fill-current',
-            getColorForLocation(isLightTheme, isSelected)
-          )}
-        />
+        <Location className={locationClasses} />
       </button>
     </li>
   );
-}
-
-function getBackgroundForBadge(daysToAppointment: number): string {
-  const isWithinTwoDays = daysToAppointment <= 2;
-  if (isWithinTwoDays) {
-    return 'bg-red-400';
-  }
-
-  const isWithinFiveDays = daysToAppointment <= 5;
-  if (isWithinFiveDays) {
-    return 'bg-green-400';
-  }
-
-  return 'bg-gray-400';
 }
 
 function getTextForBadge(daysToAppointment: number): string {
@@ -97,16 +85,4 @@ function getTextForBadge(daysToAppointment: number): string {
   }
 
   return `In ${daysToAppointment} days`;
-}
-
-function getColorForLocation(isLightTheme: boolean, isSelected: boolean) {
-  if (isLightTheme) {
-    if (isSelected) {
-      return 'text-gray-800';
-    }
-    return 'text-gray-400 hover:text-gray-700';
-  } else if (isSelected) {
-    return 'text-white';
-  }
-  return 'text-gray-700 hover:text-gray-500';
 }
