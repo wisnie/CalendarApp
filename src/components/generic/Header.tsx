@@ -35,10 +35,10 @@ export default function Header() {
                 <a href='#calendar'>Calendar</a>
               </li>
               <li className={itemClasses}>
-                <a href='#upcoming'>Upcoming</a>
+                <a href='#add-appointment'>Add Appointment</a>
               </li>
               <li className={itemClasses}>
-                <a href='#add-appointment'>Add Appointment</a>
+                <a href='#upcoming'>Upcoming</a>
               </li>
               <li className={itemClasses}>
                 <a href='#weekly-chart'>Weekly Chart</a>
