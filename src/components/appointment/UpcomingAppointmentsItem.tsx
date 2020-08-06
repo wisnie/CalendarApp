@@ -40,7 +40,7 @@ export default function UpcomingAppointmentsItem({ appointment }: Props) {
     }
   );
 
-  const locationClasses = clsx('h-6 w-6 fill-current', {
+  const locationClasses = clsx('h-6 w-6 fill-current flex-shrink-0', {
     'text-gray-800': isLightTheme && isSelected,
     'text-gray-400 hover:text-gray-700': isLightTheme && !isSelected,
     'text-white': !isLightTheme && isSelected,
@@ -48,12 +48,12 @@ export default function UpcomingAppointmentsItem({ appointment }: Props) {
   });
 
   return (
-    <li>
+    <li className='max-w-full'>
       <button
-        className='flex items-center justify-between w-full mb-5'
+        className='flex items-center justify-between w-full max-w-full mb-4'
         onClick={selectDate}
       >
-        <div className='flex items-center'>
+        <div className='flex items-center min-w-0'>
           <span className={badgeClasses}>
             {getTextForBadge(daysToAppointment)}
           </span>
@@ -66,8 +66,8 @@ export default function UpcomingAppointmentsItem({ appointment }: Props) {
             {appointment.title}
           </h3>
         </div>
-        <span className='sr-only'>Jump to Date</span>
         <Location className={locationClasses} />
+        <span className='sr-only'>Jump to Date</span>
       </button>
     </li>
   );

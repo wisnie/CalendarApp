@@ -22,7 +22,7 @@ export default function WeeklyChart() {
   return (
     <Section
       heading='Weekly Chart'
-      id='weeklyData-chart'
+      id='weekly-chart'
       gridPosition='md:col-span-12 xl:col-span-6'
     >
       <header

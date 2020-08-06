@@ -17,22 +17,20 @@ export default function Calendar() {
       id='calendar'
       gridPosition='md:col-span-6 row-span-2'
     >
-      <div className='flex flex-col'>
-        <header className='flex justify-between items-center px-3 py-4'>
-          <MonthSwitch />
-          <YearSwitch />
-        </header>
-        <article
-          className={clsx(
-            'flex flex-col p-1 border-t-2',
-            isLightTheme ? 'border-gray-200' : 'border-gray-700'
-          )}
-        >
-          <DaysOfWeek />
-          <CalendarDays />
-        </article>
-        <AppointmentsForSelectedDay />
-      </div>
+      <header className='flex justify-between items-center px-3 py-4'>
+        <MonthSwitch />
+        <YearSwitch />
+      </header>
+      <article
+        className={clsx(
+          'flex flex-col p-1 border-t-2',
+          isLightTheme ? 'border-gray-200' : 'border-gray-700'
+        )}
+      >
+        <DaysOfWeek />
+        <CalendarDays />
+      </article>
+      <AppointmentsForSelectedDay />
     </Section>
   );
 }

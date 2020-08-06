@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import clsx from 'clsx';
 
 import AppointmentsItem from './AppointmentsItem';
@@ -17,11 +17,11 @@ export default function AppointmentsForSelectedDay() {
   const isLightTheme = useIsLightTheme();
 
   return (
-    <div>
+    <Fragment>
       {appointmentsForSelectedDay.length > 0 ? (
         <ul
           className={clsx(
-            'px-3 pt-1 pb-5 border-t-2',
+            'overflow-y-auto px-3 pt-1 pb-5 border-t-2',
             isLightTheme ? 'border-gray-200' : 'border-gray-700'
           )}
         >
@@ -41,6 +41,6 @@ export default function AppointmentsForSelectedDay() {
           You have no scheduled appointments
         </span>
       )}
-    </div>
+    </Fragment>
   );
 }

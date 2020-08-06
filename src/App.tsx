@@ -22,7 +22,7 @@ function App() {
       <Header />
       <Container>
         <main
-          className='grid row-gap-8 col-gap-8 pb-8 mt-8 md:grid-cols-12'
+          className='grid row-gap-8 max-w-full col-gap-8 pb-8 mt-8 grid-cols-1 md:grid-cols-12'
           style={{ gridTemplateRows: 'repeat(2, 500px)' }}
         >
           <AppProviders>

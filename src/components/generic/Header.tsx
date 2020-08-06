@@ -4,6 +4,7 @@ import clsx from 'clsx';
 import Container from './Container';
 import ThemeToggle from './ThemeToggle';
 import { useIsLightTheme } from '../../context/theme-context';
+import './Header.css';
 
 export default function Header() {
   const isLightTheme = useIsLightTheme();
@@ -14,12 +15,12 @@ export default function Header() {
   return (
     <header
       className={clsx(
-        'sticky top-0 md:static z-20 py-3 px-2 whitespace-no-wrap overflow-x-auto',
+        'sticky top-0 md:static z-20 py-3 px-2',
         isLightTheme ? 'bg-white' : 'bg-gray-800'
       )}
     >
       <Container>
-        <div className='flex items-center justify-between w-full'>
+        <div className='scroll flex items-center justify-between w-full whitespace-no-wrap overflow-x-auto'>
           <h1
             className={clsx(
               'mr-3 text-2xl font-bold tracking-wide md:text-3xl lg:text-4xl flex-shrink-0',
@@ -34,10 +35,13 @@ export default function Header() {
                 <a href='#calendar'>Calendar</a>
               </li>
               <li className={itemClasses}>
-                <a href='#upcoming-appointments'>Upcoming Appointments</a>
+                <a href='#upcoming'>Upcoming</a>
               </li>
               <li className={itemClasses}>
                 <a href='#add-appointment'>Add Appointment</a>
+              </li>
+              <li className={itemClasses}>
+                <a href='#weekly-chart'>Weekly Chart</a>
               </li>
             </ul>
           </nav>
