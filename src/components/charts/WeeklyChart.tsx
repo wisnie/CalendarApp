@@ -6,7 +6,6 @@ import {
   CartesianGrid,
   XAxis,
   YAxis,
-  Tooltip,
   Legend,
   ResponsiveContainer,
 } from 'recharts';
@@ -55,7 +54,6 @@ export default function WeeklyChart() {
             <CartesianGrid stroke='#ccc' strokeDasharray='5 5' />
             <XAxis dataKey='name' />
             <YAxis width={30} />
-            <Tooltip />
           </LineChart>
         </ResponsiveContainer>
       </div>
