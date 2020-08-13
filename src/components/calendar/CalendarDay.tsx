@@ -1,16 +1,16 @@
-import React from 'react';
-import clsx from 'clsx';
+import React from 'react'
+import clsx from 'clsx'
 
-import { useIsLightTheme } from '../../context/theme-context';
+import { useIsLightTheme } from '../../context/theme-context'
 
 type Props = {
-  day: number;
-  isCurrentDate: boolean;
-  isFaded: boolean;
-  isSelected: boolean;
-  hasAppointment: boolean;
-  onClick: () => void;
-};
+  day: number
+  isCurrentDate: boolean
+  isFaded: boolean
+  isSelected: boolean
+  hasAppointment: boolean
+  onClick: () => void
+}
 
 export default function CalendarDay({
   day,
@@ -20,8 +20,7 @@ export default function CalendarDay({
   onClick,
   hasAppointment,
 }: Props) {
-  const isLightTheme = useIsLightTheme();
-
+  const isLightTheme = useIsLightTheme()
   return (
     <li
       className={clsx(
@@ -47,9 +46,9 @@ export default function CalendarDay({
               !isSelected && isLightTheme && 'bg-gray-700'
             )}
             style={{ right: '50%', top: '5px' }}
-          ></div>
+          />
         )}
       </button>
     </li>
-  );
+  )
 }
