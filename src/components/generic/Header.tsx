@@ -15,7 +15,7 @@ export default function Header() {
   return (
     <header
       className={clsx(
-        'sticky top-0 md:static z-20 py-3 px-2',
+        'sticky top-0 md:static z-20 py-3 px-2 shadow-lg',
         isLightTheme ? 'bg-white' : 'bg-gray-800'
       )}
     >
@@ -35,10 +35,10 @@ export default function Header() {
                 <a href='#calendar'>Calendar</a>
               </li>
               <li className={itemClasses}>
-                <a href='#upcoming'>Upcoming</a>
+                <a href='#add-appointment'>Add Appointment</a>
               </li>
               <li className={itemClasses}>
-                <a href='#add-appointment'>Add Appointment</a>
+                <a href='#upcoming'>Upcoming</a>
               </li>
               <li className={itemClasses}>
                 <a href='#weekly-chart'>Weekly Chart</a>
